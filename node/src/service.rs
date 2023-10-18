@@ -199,6 +199,11 @@ pub fn new_full(config: Configuration) -> Result<TaskManager, ServiceError> {
 			.run(client.clone(), task_manager.spawn_handle())
 			.boxed(),
 		);
+		sp_keystore::SyncCryptoStore::sr25519_generate_new(
+			&*keystore,
+			node_template_runtime::pallet_your_ocw_pallet::KEY_TYPE,
+			Some("//Alice"),
+		).expect("Creating key with account Alice should succeed.");		
 	}
 
 	let role = config.role.clone();
